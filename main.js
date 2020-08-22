@@ -4,6 +4,9 @@ const api = {
   url: "https://api.openweathermap.org/data/2.5/",
 };
 
+
+const KELVIN = 273;
+
 // get user position
 
 navigator.geolocation.getCurrentPosition(setPosition);
@@ -21,7 +24,7 @@ function getWeather(latitude, longitude) {
 
   fetch(my_api)
     .then((response) => response.json())
-    .then(renderOutput);
+    .then(desplayResult);
 }
 
 // get input info
@@ -49,29 +52,43 @@ function getResults(query) {
 
 //  fetch and display the result from databases :
 
-function renderOutput(data) {
-  console.log(data);
-  let icon = document.querySelector(".weather-icon");
+let icon = document.querySelector(".weather-icon");
+let city = document.querySelector(".location .city");
+let date = document.querySelector(".location .date");
+let temp = document.querySelector(".current .temp");
+let weather_el = document.querySelector(".current .weather_status");
+let hi_low = document.querySelector(".hi-low");
+
+
+function desplayResult(data) {
+  // console.log(data);
   icon.innerHTML = ` <img src="icons/${data.weather[0].icon}.png" />`;
-
-  let city = document.querySelector(".location .city");
   city.innerText = `${data.name}, ${data.sys.country}`;
-
   let now = new Date();
-  let date = document.querySelector(".location .date");
   date.innerText = dateBuilder(now);
-
-  let temp = document.querySelector(".current .temp");
-  temp.innerHTML = `${Math.round(data.main.temp)}<span>°c</span>`;
-
-  let weather_el = document.querySelector(".current .weather_status");
+  temp.innerHTML = `${Math.round(data.main.temp-KELVIN)}<span>°c</span>`;
   weather_el.innerText = data.weather[0].main;
+  hi_low.innerText = `${Math.round(data.main.temp_min-KELVIN)}°c / ${Math.round(
+    data.main.temp_max-KELVIN
+  )}°c`;
+}
 
-  let hi_low = document.querySelector(".hi-low");
+function renderOutput(data) {
+  // console.log(data);
+  icon.innerHTML = ` <img src="icons/${data.weather[0].icon}.png" />`;
+  city.innerText = `${data.name}, ${data.sys.country}`;
+  let now = new Date();
+  date.innerText = dateBuilder(now);
+  temp.innerHTML = `${Math.round(data.main.temp)}<span>°c</span>`;
+  weather_el.innerText = data.weather[0].main;
   hi_low.innerText = `${Math.round(data.main.temp_min)}°c / ${Math.round(
     data.main.temp_max
   )}°c`;
 }
+
+
+
+
 
 // create date function
 function dateBuilder(dt) {
