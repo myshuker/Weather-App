@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="main.css" />
   </head>
   <body>
-    <div class="app-wrap">
-      <!-- Hello World!! -->
+    <div class="container">
+      <div class="title">Weather App</div>
       <header>
         <input
           type="text"
@@ -17,15 +17,18 @@
         />
       </header>
       <main>
-          <section class="location">
-              <div class="city">City / Country</div>
-              <div class="date">DD/MM/YYYY</div>
-          </section>
-          <div class="current">
-              <div class="temp">?<span>°c</span></div>
-              <div class="weather_status">-</div>
-              <div class="hi-low">?°c / ?°c</div>
-          </div>
+        <div class="weather-icon">
+          <img src="icons/unknown.png" alt="weather_icon" />
+        </div>
+        <section class="location">
+          <div class="city">City / Country</div>
+          <div class="date">DD/MM/YYYY</div>
+        </section>
+        <div class="current">
+          <div class="temp">?<span>°c</span></div>
+          <div class="weather_status">-</div>
+          <div class="hi-low">?°c / ?°c</div>
+        </div>
       </main>
     </div>
 
